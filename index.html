@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zyren A. Misauy 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e6d5ff 0%, #d4b3ff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 10px;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px 30px;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(138, 43, 226, 0.3);
+            max-width: 600px;
+            width: 100%;
+            min-height: 550px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            margin: 20px auto;
+        }
+
+        .question-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            height: 100%;
+            padding: 10px 0;
+        }
+
+        .content-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 20px;
+            overflow: visible;
+            min-height: 0;
+        }
+
+        .success-screen {
+            display: none;
+        }
+
+        h1 {
+            color: #8a2be2;
+            font-size: clamp(1.3em, 3vw, 2.3em);
+            margin-bottom: 5px;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            position: relative;
+            z-index: 500;
+            flex-shrink: 0;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .gif-container {
+            margin: 5px 0;
+            border-radius: 20px;
+            overflow: hidden;
+            height: clamp(150px, 30vw, 200px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 1;
+        }
+
+        .gif-container img {
+            width: auto;
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 20px;
+            object-fit: contain;
+        }
+
+        .message {
+            font-size: clamp(1em, 4vw, 1.5em);
+            color: #9370db;
+            margin: 5px 0;
+            font-weight: bold;
+            min-height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 500;
+            padding: 5px 10px;
+            flex-shrink: 0;
+        }
+
+        .buttons {
+            display: flex;
+            gap: clamp(20px, 5vw, 40px);
+            justify-content: center;
+            align-items: center;
+            margin-top: auto;
+            margin-bottom: 15px;
+            flex-wrap: nowrap;
+            position: relative;
+            z-index: 10;
+            min-height: clamp(80px, 18vw, 130px);
+            padding: 10px;
+            flex-shrink: 0;
+        }
+
+        .button-cell {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: clamp(100px, 20vw, 150px);
+            min-height: clamp(60px, 15vw, 100px);
+            flex-shrink: 0;
+        }
+
+        .yes-cell {
+            order: 1;
+            z-index: 50;
+            position: relative;
+        }
+
+        .no-cell {
+            order: 2;
+            z-index: 100;
+            position: relative;
+        }
+
+        button {
+            padding: clamp(10px, 3vw, 15px) clamp(20px, 5vw, 40px);
+            border: none;
+            border-radius: 50px;
+            font-size: clamp(0.9em, 3vw, 1.2em);
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            position: static;
+            transform-origin: center center;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+        #yesBtn {
+            background: linear-gradient(135deg, #8a2be2, #9370db);
+            color: white;
+            z-index: 50;
+            margin-right: 10px;
+            position: relative;
+        }
+
+        #yesBtn:hover {
+            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.4);
+        }
+
+        #noBtn {
+            background: linear-gradient(135deg, #ddd, #bbb);
+            color: #666;
+            z-index: 100;
+            margin-left: 10px;
+            position: relative;
+        }
+
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 30px;
+            animation: fall 4s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes fall {
+            0% {
+                opacity: 1;
+                transform: translateY(-100px) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        .celebration {
+            font-size: clamp(2em, 6vw, 3em);
+            margin: 20px 0;
+        }
+
+        .success-message {
+            font-size: clamp(1.2em, 4vw, 1.8em);
+            color: #8a2be2;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .plans-content {
+            text-align: left;
+            max-width: 500px;
+            margin: 30px auto;
+            background: #f8f4ff;
+            padding: 25px;
+            border-radius: 20px;
+            border: 2px solid #e6d5ff;
+        }
+
+        .plan-item {
+            margin: 20px 0;
+            font-size: clamp(1em, 3vw, 1.2em);
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .plan-item strong {
+            color: #8a2be2;
+            font-size: 1.1em;
+        }
+
+        #plansBtn, #gBtn {
+            background: linear-gradient(135deg, #8a2be2, #9370db);
+            color: white;
+            padding: clamp(12px, 3vw, 18px) clamp(30px, 6vw, 50px);
+            font-size: clamp(1em, 3vw, 1.3em);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        #plansBtn:hover, #gBtn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.6);
+        }
+
+        .music-toggle {
+            position: fixed;
+            bottom: clamp(10px, 3vw, 20px);
+            right: clamp(10px, 3vw, 20px);
+            background: linear-gradient(135deg, #8a2be2, #9370db);
+            color: white;
+            border: none;
+            width: clamp(50px, 10vw, 60px);
+            height: clamp(50px, 10vw, 60px);
+            border-radius: 50%;
+            font-size: clamp(20px, 4vw, 24px);
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .music-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .music-toggle.playing {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Loading Screen Styles */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #e6d5ff 0%, #d4b3ff 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-content {
+            text-align: center;
+            background: white;
+            padding: 50px 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(138, 43, 226, 0.3);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .heart-loader {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .heart-loader .heart {
+            font-size: 40px;
+            animation: heartBounce 1.4s ease-in-out infinite;
+        }
+
+        .heart-loader .heart:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .heart-loader .heart:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .heart-loader .heart:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes heartBounce {
+            0%, 80%, 100% { 
+                transform: scale(1) translateY(0);
+            }
+            40% { 
+                transform: scale(1.2) translateY(-20px);
+            }
+        }
+
+        .loading-title {
+            color: #8a2be2;
+            font-size: clamp(1.2em, 4vw, 1.8em);
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #f0e6ff;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #8a2be2, #9370db, #ba55d3);
+            border-radius: 15px;
+            width: 0%;
+            transition: width 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .loading-percentage {
+            font-size: clamp(1.5em, 5vw, 2em);
+            color: #8a2be2;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .loading-message {
+            font-size: clamp(0.9em, 3vw, 1.1em);
+            color: #9370db;
+            font-style: italic;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                min-height: 450px;
+                border-radius: 20px;
+            }
+
+            .buttons {
+                flex-direction: row;
+                gap: 15px;
+            }
+
+            .button-cell {
+                min-width: 80px;
+                min-height: 50px;
+            }
+
+            h1 {
+                margin-bottom: 15px;
+            }
+
+            .gif-container {
+                margin: 15px 0;
+            }
+
+            .message {
+                margin: 10px 0 15px 0;
+                min-height: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 15px;
+                min-height: 400px;
+                margin: 10px;
+                border-radius: 15px;
+            }
+
+            body {
+                padding: 5px;
+            }
+
+            .buttons {
+                gap: 10px;
+                padding: 5px;
+            }
+
+            .button-cell {
+                min-width: 60px;
+                min-height: 40px;
+            }
+
+            #yesBtn, #noBtn {
+                margin: 0;
+            }
+        }
+
+        @media (max-height: 700px) and (orientation: landscape) {
+            .container {
+                min-height: 350px;
+            }
+
+            .gif-container {
+                height: clamp(150px, 30vw, 200px);
+            }
+
+            h1 {
+                font-size: clamp(1.2em, 4vw, 2em);
+                margin-bottom: 10px;
+            }
+
+            .message {
+                margin: 5px 0 10px 0;
+            }
+
+            .buttons {
+                margin-top: 10px;
+                min-height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="heart-loader">
+                <div class="heart">💜</div>
+                <div class="heart">💕</div>
+                <div class="heart">💜</div>
+            </div>
+            <h2 class="loading-title">Preparing something special...</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="loading-percentage" id="loadingPercentage">0%</div>
+            <div class="loading-message" id="loadingMessage">Loading...</div>
+        </div>
+    </div>
+
+    <div class="hearts" id="hearts"></div>
+    
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="https://image2url.com/r2/default/audio/1770712278558-f58c6224-3be7-45a0-ba8f-947530ef116c.mp3" type="audio/mpeg">
+    </audio>
+    
+    <div class="container">
+        <div class="question-screen" id="questionScreen">
+            <div class="content-area">
+                <h1 id="mainHeading" style="display: none;">Will You Be My Valentine? 💕</h1>
+                
+                <div class="gif-container">
+<img id="questionGif" src="https://i.ibb.co/4nCtdTwV/photo-2026-02-09-23-09-23.jpg" alt="Cute asking">               </div>
+                
+                <div class="message" id="message">Hey, you make this page prettier already ✨</div>
+            </div>
+            
+            <div class="buttons">
+                <div class="button-cell yes-cell">
+                    <button id="yesBtn">TAP ME</button>
+                </div>
+                <div class="button-cell no-cell" id="noCell" style="display: none;">
+                    <button id="noBtn">No</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="success-screen" id="successScreen">
+            <div class="stage-11" id="stage11">
+                <div class="celebration"><span style="font-size: 0.5em;">🎉💕🎊</span></div>
+                <h1>YEEYY! I knew you love me!</h1>
+		<h1> Happy Valentine's Day!</h1>
+                
+                <div class="gif-container">
+                    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZno2MnJtbnJvOWRldWw1M3p4NXltNmpvNzUwcmh3eHBvNHB0dmR1YyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/zFHu7yuSHm4H5gNZVx/giphy.gif" alt="Happy celebration">
+                </div>
+
+                <div class="success-message"><span style="font-size: 0.6em;">I love you so muuucchh akiii 💗💗💗</span></div>
+                
+                <div class="buttons">
+                    <div class="button-cell">
+                        <button id="plansBtn">PLANS?</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stage-12" id="stage12" style="display: none;">
+                <h1>Our Valentine's Date 💕</h1>
+                
+                <div class="plans-content">
+                    <div class="plan-item">
+                        <strong>WHAT TO WEAR:</strong> Casual <span style="font-size: 0.7em;"> (white top and blue jeans)</span> <br>
+                        <span style="font-size: 0.7em;">PS: open for negotiation 😄</span>
+                    </div>
+                    <div class="plan-item">
+                        <strong>WHERE:</strong> Gramercy Residences, Makati City
+                    </div>
+                    <div class="plan-item">
+                        <strong>FOOD?:</strong> I can cook for you instead of going out<br>
+                        <span style="font-size: 0.9em;">(if that’s okay with you.)</span>
+                    </div>
+                </div>
+                
+                <div class="success-message" style="margin-top: 30px;">ARE YOU G?</div>
+                
+                <div class="buttons">
+                    <div class="button-cell">
+                        <button id="gBtn">G!</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stage-13" id="stage13" style="display: none;">
+                <div class="celebration">🎉💜✨</div>
+                <h1>YEEY ALL SET!</h1>
+                
+                <div class="gif-container">
+                    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXF6cGliaTd1Y2J5MzNydXh2eTRhdXNmMHVlMDl3MHE4MXd0ZDF2ZCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/W1hd3uXRIbddu/giphy.gif" alt="Happy celebration">
+                </div>
+                
+                <div class="success-message">PUPUNTA NA LANG PO IKAW</div>
+                <div class="success-message" style="font-size: 0.9em;">(susunduin kita syempre hehe)</div>
+                <div class="success-message" style="margin-top: 20px;">I LOVE YOU SO MUCCCCHHH! MWUAAA MWUAAA 💋💋💋</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Music Toggle Button -->
+    <button class="music-toggle" id="musicToggle" title="Play/Pause Music">🎵</button>
+
+    <script>
+        let noClickCount = 0;
+        let yesScale = 1;
+        let noScale = 1;
+        
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const message = document.getElementById('message');
+        const questionGif = document.getElementById('questionGif');
+        const questionScreen = document.getElementById('questionScreen');
+        const successScreen = document.getElementById('successScreen');
+        const bgMusic = document.getElementById('bgMusic');
+        const musicToggle = document.getElementById('musicToggle');
+
+        let isPlaying = false;
+
+        // Try to autoplay music when page loads
+        window.addEventListener('load', () => {
+            playMusic();
+        });
+
+        // Music toggle functionality
+        musicToggle.addEventListener('click', () => {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicToggle.textContent = '🔇';
+                musicToggle.classList.remove('playing');
+                isPlaying = false;
+            } else {
+                playMusic();
+            }
+        });
+
+        function playMusic() {
+            if (isPlaying) return; // Already playing
+            
+            // Set volume
+            bgMusic.volume = 0.6;
+            
+            // Reset and load
+            bgMusic.currentTime = 0;
+            bgMusic.load();
+            
+            // Try to play
+            const playPromise = bgMusic.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    musicToggle.textContent = '🎵';
+                    musicToggle.classList.add('playing');
+                    isPlaying = true;
+                    console.log('✅ Music is playing!');
+                }).catch(err => {
+                    console.log('⚠️ Autoplay prevented (browser policy):', err.message);
+                    musicToggle.textContent = '🔇';
+                    musicToggle.style.animation = 'pulse 1s ease-in-out infinite';
+                    
+                    // Show message to user
+                    console.log('👆 Click anywhere to start the music');
+                });
+            }
+        }
+
+        const stages = [
+            { message: "Hey, Gandaaaaa! 💕", image: "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3MDh6NDZrMmY3ZGMyY25kaWdld2R2NHI3dml5cTAzMHFyamxneGJyYSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/4t6FtChy7lJSkda8PW/giphy.gif", buttonText: "TAP ME" },
+            { message: "I know Valentine's Day is near when I show you this.", image: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcXhzOXdodXl0czFsdmU3enY1bGNhMjd5aWNlY3A3eWpuZm5meXIzYyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/XYEEvoX0Ub69ZgN9ai/giphy.gif", buttonText: "THEN?" },
+            { message: "But still, I want to ask you this.", image: "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3ZDVyMWFrYnp2djZ3bGgxMDFxYXZ5cjFvZnlhYXdwdXkxZnh4NTE3NSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/l49K0pPIf3YYv5yMg/giphy.gif", buttonText: "WHAT?" },
+            { message: "", image: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjljOW9kcnV3bnZ5Nzl2ejRwd2xpb3BydGpweG03bXYydjk5YmQ2dSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/WK7omsLop0431tZjXb/giphy.gif", buttonText: "Yes! 💖" },
+            { message: "Say yes, please huhuhuhu.", image: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTcxem01OGMwd2g1eXM5N2xmNDZ6MWl1ZmYwNW15ZTJ6endoNXRvNyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/YZOsKxJfmvzG0/giphy.gif", buttonText: "Yes! 💖" },
+            { message: "Please, akiii 🥺", image: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTcxem01OGMwd2g1eXM5N2xmNDZ6MWl1ZmYwNW15ZTJ6endoNXRvNyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/zZbf6UpZslp3nvFjIR/giphy.gif", buttonText: "Yes! 💖" },
+            { message: "Don't do this to me 😢", image: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2llaGFseDQ0cm84ZzR6eXA0b215OGw2cGViZmtwc2UzNXF1bnQ2ZSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/dCwNmR9BBOzKpiBQOs/giphy.gif", buttonText: "Yes! 💖" },
+            { message: "I'm so sad, huhu. Say yes, please.", image: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTcxem01OGMwd2g1eXM5N2xmNDZ6MWl1ZmYwNW15ZTJ6endoNXRvNyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/43wR1f8QU9KApWKjYt/giphy.gif", buttonText: "Yes! 💖" },
+            { message: "You're breaking my heart.. 💔", image: "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3eWlybjRuNHpzdGY3cGo3em8wazFuZWNvbTkzbmpzMXdhY3JxaTB0YyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/dvxq3BtNLK6KEgTryW/giphy.gif", buttonText: "Yes! 💖" },
+            { message: "You love me, right?", image: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHF4djhwbGh1OWM4OWVsOGJzZmZ1YnlrZmpyd2FoNzRqa211NGhueSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/02FkGsdJGRMsG8RjPM/giphy.gif", buttonText: "Yes! 💖" },
+            { message: "You have no choice now! ❤️", image: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2RreDR0ZjNnYzRqb2pzYngzbGNwNXZuejNhbnc5bGF0NmN3bWMzbiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/MvZJtkjJN81Cgx2X9F/giphy.gif", buttonText: "Yes! 💖" }
+        ];
+
+        // Preload all GIF images to prevent delay when switching stages
+        const preloadedImages = [];
+        stages.forEach((stage, index) => {
+            const img = new Image();
+            img.src = stage.image;
+            preloadedImages[index] = img;
+        });
+
+        // Also preload success screen GIF
+        const successGif = new Image();
+        successGif.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTcxem01OGMwd2g1eXM5N2xmNDZ6MWl1ZmYwNW15ZTJ6endoNXRvNyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/5tmRHwTlHAA9WkVxTU/giphy.gif";
+
+        // Loading Screen Logic
+        const loadingScreen = document.getElementById('loadingScreen');
+        const progressFill = document.getElementById('progressFill');
+        const loadingPercentage = document.getElementById('loadingPercentage');
+        const loadingMessage = document.getElementById('loadingMessage');
+
+        // Try to play music immediately when script loads
+        setTimeout(() => {
+            playMusic();
+        }, 100);
+
+        // Add click listener on loading screen to start music
+        loadingScreen.addEventListener('click', () => {
+            if (!isPlaying) {
+                playMusic();
+            }
+        });
+
+        // Add listener to any interaction to start music
+        const startMusicOnInteraction = () => {
+            if (!isPlaying) {
+                playMusic();
+            }
+        };
+
+        document.addEventListener('click', startMusicOnInteraction);
+        document.addEventListener('touchstart', startMusicOnInteraction);
+        document.addEventListener('keydown', startMusicOnInteraction);
+
+        const loadingMessages = [
+            "Loading hearts...",
+            "Preparing GIFs...",
+            "Adding some love...",
+            "Making it special...",
+            "Almost ready...",
+            "Getting everything perfect...",
+            "Just a moment..."
+        ];
+
+        let currentProgress = 0;
+        const loadingDuration = 10000; // 10 seconds total
+        const updateInterval = 50; // Update every 50ms
+        const incrementAmount = (100 / loadingDuration) * updateInterval;
+
+        // Smooth progress animation over 10 seconds
+        const progressInterval = setInterval(() => {
+            currentProgress += incrementAmount;
+            
+            if (currentProgress >= 100) {
+                currentProgress = 100;
+                clearInterval(progressInterval);
+                
+                // Hide loading screen after reaching 100%
+                setTimeout(() => {
+                    loadingScreen.classList.add('hidden');
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                        // Try to start music when stage 0 appears
+                        if (!isPlaying) {
+                            playMusic();
+                        }
+                    }, 500);
+                }, 500);
+            }
+            
+            // Update progress bar and percentage
+            progressFill.style.width = currentProgress + '%';
+            loadingPercentage.textContent = Math.floor(currentProgress) + '%';
+            
+            // Update loading message based on progress
+            const messageIndex = Math.floor((currentProgress / 100) * (loadingMessages.length - 1));
+            loadingMessage.textContent = loadingMessages[messageIndex];
+        }, updateInterval);
+
+        // Still preload images in background (but don't affect progress bar)
+        stages.forEach((stage, index) => {
+            const img = new Image();
+            img.src = stage.image;
+            preloadedImages[index] = img;
+        });
+
+        // Preload success GIF
+        successGif.onload = () => {};
+        successGif.onerror = () => {};
+
+        let stage = 0;
+        let moveCount = 0;
+
+        noBtn.addEventListener('mouseenter', () => {
+            if (stage < 10 && moveCount < 3) {
+                moveCount++;
+                
+                // Get container and button dimensions
+                const container = document.querySelector('.container');
+                const containerRect = container.getBoundingClientRect();
+                const noBtnRect = noBtn.getBoundingClientRect();
+                const yesBtnRect = yesBtn.getBoundingClientRect();
+                const messageEl = document.getElementById('message');
+                const messageRect = messageEl.getBoundingClientRect();
+                const headingEl = document.querySelector('h1');
+                const headingRect = headingEl.getBoundingClientRect();
+                const gifEl = document.querySelector('.gif-container');
+                const gifRect = gifEl.getBoundingClientRect();
+                
+                let x, y;
+                let validPosition = false;
+                let attempts = 0;
+                
+                // Try to find a position that doesn't overlap with Yes button OR text areas
+                while (!validPosition && attempts < 100) {
+                    // Move to random position within white container
+                    const padding = 80;
+                    const maxX = containerRect.width - noBtnRect.width - padding;
+                    const maxY = containerRect.height - noBtnRect.height - padding;
+                    x = Math.random() * maxX + containerRect.left + (padding/2);
+                    y = Math.random() * maxY + containerRect.top + (padding/2);
+                    
+                    // Calculate No button bounds at new position
+                    const noLeft = x;
+                    const noRight = x + noBtnRect.width;
+                    const noTop = y;
+                    const noBottom = y + noBtnRect.height;
+                    
+                    // Calculate Yes button bounds with extra padding
+                    const safetyPadding = 30;
+                    const yesLeft = yesBtnRect.left - safetyPadding;
+                    const yesRight = yesBtnRect.right + safetyPadding;
+                    const yesTop = yesBtnRect.top - safetyPadding;
+                    const yesBottom = yesBtnRect.bottom + safetyPadding;
+                    
+                    // Calculate text area bounds (heading, message, GIF)
+                    const textPadding = 20;
+                    const headingLeft = headingRect.left - textPadding;
+                    const headingRight = headingRect.right + textPadding;
+                    const headingTop = headingRect.top - textPadding;
+                    const headingBottom = headingRect.bottom + textPadding;
+                    
+                    const messageLeft = messageRect.left - textPadding;
+                    const messageRight = messageRect.right + textPadding;
+                    const messageTop = messageRect.top - textPadding;
+                    const messageBottom = messageRect.bottom + textPadding;
+                    
+                    const gifLeft = gifRect.left - textPadding;
+                    const gifRight = gifRect.right + textPadding;
+                    const gifTop = gifRect.top - textPadding;
+                    const gifBottom = gifRect.bottom + textPadding;
+                    
+                    // Check if No button would overlap with Yes button
+                    const noOverlapYes = (noRight < yesLeft || noLeft > yesRight || 
+                                         noBottom < yesTop || noTop > yesBottom);
+                    
+                    // Check if No button would overlap with heading
+                    const noOverlapHeading = (noRight < headingLeft || noLeft > headingRight || 
+                                             noBottom < headingTop || noTop > headingBottom);
+                    
+                    // Check if No button would overlap with message
+                    const noOverlapMessage = (noRight < messageLeft || noLeft > messageRight || 
+                                             noBottom < messageTop || noTop > messageBottom);
+                    
+                    // Check if No button would overlap with GIF
+                    const noOverlapGif = (noRight < gifLeft || noLeft > gifRight || 
+                                         noBottom < gifTop || noTop > gifBottom);
+                    
+                    if (noOverlapYes && noOverlapHeading && noOverlapMessage && noOverlapGif) {
+                        validPosition = true;
+                    }
+                    
+                    attempts++;
+                }
+                
+                if (validPosition) {
+                    noBtn.style.position = 'fixed';
+                    noBtn.style.left = x + 'px';
+                    noBtn.style.top = y + 'px';
+                    noBtn.style.zIndex = '100'; // In front of Yes button
+                }
+            }
+        });
+
+        noBtn.addEventListener('click', () => {
+            if (stage < 10 && moveCount >= 3) {
+                // Progress to next stage after 3 moves
+                stage++;
+                moveCount = 0;
+                
+                // IMPORTANT: Reset position to static so No button stays BESIDE Yes button
+                // This ensures they're side by side at the START of each stage
+                noBtn.style.position = 'static';
+                noBtn.style.left = '';
+                noBtn.style.top = '';
+                noBtn.style.transform = '';
+                
+                // Update message and image
+                message.textContent = stages[stage].message;
+                questionGif.src = stages[stage].image;
+                
+                // Update Yes button text
+                if (stages[stage].buttonText) {
+                    yesBtn.textContent = stages[stage].buttonText;
+                }
+                
+                // Make yes bigger and no smaller
+                yesScale += 0.3;
+                noScale -= 0.15;
+                
+                // Apply transforms - buttons will stay side by side in flexbox
+                yesBtn.style.transform = `scale(${yesScale})`;
+                noBtn.style.transform = `scale(${Math.max(noScale, 0.3)})`;
+                
+                // Stage 10 - remove no button
+                if (stage >= 10) {
+                    noBtn.style.display = 'none';
+                    yesScale += 0.5;
+                    yesBtn.style.transform = `scale(${yesScale})`;
+                }
+            }
+        });
+
+        yesBtn.addEventListener('click', () => {
+            // For stages 0-2, just progress to next stage
+            if (stage < 3) {
+                stage++;
+                moveCount = 0;
+                
+                message.textContent = stages[stage].message;
+                questionGif.src = stages[stage].image;
+                
+                if (stages[stage].buttonText) {
+                    yesBtn.textContent = stages[stage].buttonText;
+                }
+                
+                // Show heading and No button at stage 3 (the main question)
+                if (stage === 3) {
+                    document.getElementById('mainHeading').style.display = 'block';
+                    document.getElementById('noCell').style.display = 'flex';
+                }
+            } else {
+                // Stage 3+ means they said yes to being valentine
+                questionScreen.style.display = 'none';
+                successScreen.style.display = 'block';
+                createHearts();
+            }
+        });
+
+        // Plans button click
+        document.addEventListener('click', (e) => {
+            if (e.target && e.target.id === 'plansBtn') {
+                document.getElementById('stage11').style.display = 'none';
+                document.getElementById('stage12').style.display = 'block';
+            }
+            
+            if (e.target && e.target.id === 'gBtn') {
+                document.getElementById('stage12').style.display = 'none';
+                document.getElementById('stage13').style.display = 'block';
+                createHearts();
+            }
+        });
+
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.textContent = '💕';
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.animationDelay = Math.random() * 2 + 's';
+                    heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                    heartsContainer.appendChild(heart);
+                    
+                    setTimeout(() => heart.remove(), 4000);
+                }, i * 100);
+            }
+        }
+    </script>
+</body>
+</html>
